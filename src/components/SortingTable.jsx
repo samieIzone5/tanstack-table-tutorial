@@ -2,23 +2,34 @@ import {
   flexRender,
   useReactTable,
   getCoreRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import data from "../data.json";
 import { columns } from "./columns";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
-export default function BasicTable() {
+export default function SortingTable() {
+  const [sorting, setSorting] = useState([]);
+
   const finalData = useMemo(() => {
     return data;
   }, []);
   const finalColumns = useMemo(() => {
     return columns;
   }, []);
+
   // create a table instance
   const table = useReactTable({
     columns: finalColumns,
     data: finalData,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting: sorting,
+    },
+
+    // onChange
+    onSortingChange: setSorting,
   });
 
   return (
@@ -30,13 +41,25 @@ export default function BasicTable() {
               <tr key={headerEl.id}>
                 {headerEl.headers.map((columnEl) => {
                   return (
-                    <th key={columnEl.id} colSpan={columnEl.colSpan}>
+                    <th
+                      key={columnEl.id}
+                      colSpan={columnEl.colSpan}
+                      className="cursor-pointer"
+                      onClick={columnEl.column.getToggleSortingHandler()}
+                    >
                       {columnEl.isPlaceholder
                         ? null
                         : flexRender(
                             columnEl.column.columnDef.header,
                             columnEl.getContext()
                           )}
+
+                      {/* Code for sorting */}
+                      {
+                        { asc: "-UP", desc: "-Down" }[
+                          columnEl.column.getIsSorted() ?? null
+                        ]
+                      }
                     </th>
                   );
                 })}
@@ -62,7 +85,6 @@ export default function BasicTable() {
             );
           })}
         </tbody>
-        
       </table>
     </div>
   );
