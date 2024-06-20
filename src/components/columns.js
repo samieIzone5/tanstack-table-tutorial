@@ -3,34 +3,36 @@ import { createColumnHelper } from "@tanstack/react-table";
 const columnHelper = createColumnHelper();
 
 export const columns = [
-  columnHelper.accessor('id', {
+  columnHelper.accessor("id", {
     header: "ID",
-    footer: "ID"
+    footer: "ID",
+    enableColumnFilter: false,
   }),
   {
     accessorFn: (row) => `${row.firstName}`,
     header: "First Name",
-    footer: "First Name"
+    footer: "First Name",
   },
   {
     accessorKey: "lastName",
     header: "Last Name",
-    footer: "Last Name"
+    footer: "Last Name",
   },
   {
     accessorKey: "email",
     header: "Email",
-    footer: "Last Name"
+    footer: "Last Name",
   },
   {
     accessorKey: "phoneNumber",
     header: "Phone Number",
-    footer: "Phone Number"
+    footer: "Phone Number",
   },
   {
     accessorKey: "date",
     header: "Date",
-    footer: "Date"
+    footer: "Date",
+    enableColumnFilter: false,
   },
 ];
 

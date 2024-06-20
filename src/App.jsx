@@ -1,10 +1,10 @@
 import './App.css'
-import GlobalFiltering from "./components/GlobalFiltering";
+import ColumnFiltering from "./components/ColumnFiltering";
 
 function App() {
   return (
     <div className="w-full p-16 ">
-      <GlobalFiltering />
+      <ColumnFiltering />
     </div>
   );
 }

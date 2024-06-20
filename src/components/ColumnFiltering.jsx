@@ -7,39 +7,41 @@ import {
 import data from "../data.json";
 import { columns } from "./columns";
 import { useMemo, useState } from "react";
-import DebouncedInput from "./DebouncedInput";
+import Filter from "./FilterFunction";
 
-export default function GlobalFiltering() {
-  const [filtering, setFiltering] = useState("");
+export default function ColumnFiltering() {
+  const [columnFilters, setColumnFilters] = useState([]);
+
   const finalData = useMemo(() => {
     return data;
   }, []);
   const finalColumns = useMemo(() => {
     return columns;
   }, []);
+  const defaultColumn = useMemo(() => {
+    return {
+      youtubeProps: "Hello World",
+    };
+  }, []);
+
   // create a table instance
   const table = useReactTable({
     columns: finalColumns,
     data: finalData,
+    defaultColumn,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
 
     state: {
-      globalFilter: filtering,
+      columnFilters: columnFilters,
     },
 
     // onChange
-    onColumnFiltersChange: setFiltering,
+    onColumnFiltersChange: setColumnFilters,
   });
 
   return (
     <div>
-      <DebouncedInput
-        className="border mb-8 py-2 px-4 rounded-lg"
-        type="text"
-        value={filtering}
-        onChange={(value) => setFiltering(value)}
-      />
       <table>
         <thead>
           {table.getHeaderGroups().map((headerEl) => {
@@ -48,10 +50,18 @@ export default function GlobalFiltering() {
                 {headerEl.headers.map((columnEl) => {
                   return (
                     <th key={columnEl.id}>
-                      {flexRender(
-                        columnEl.column.columnDef.header,
-                        columnEl.getContext()
-                      )}
+                      <div>
+                        {flexRender(
+                          columnEl.column.columnDef.header,
+                          columnEl.getContext()
+                        )}
+
+                        {columnEl.column.getCanFilter() ? (
+                          <div>
+                            <Filter column={columnEl.column} table={table} />
+                          </div>
+                        ) : null}
+                      </div>
                     </th>
                   );
                 })}

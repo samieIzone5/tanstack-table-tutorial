@@ -29,7 +29,7 @@ const DebouncedInput = ({ initialValue, placeholder, onChange, className }) => {
   return (
     <div>
       <input
-        className={className}
+        className={`text-black ${className}`}
         placeholder={placeholder}
         value={initialValue}
         onChange={(e) => setValue(e.target.value)}
