@@ -1,10 +1,10 @@
 import './App.css'
-import BasicTable from './components/BasicTable';
+import RowSelection from "./components/RowSelection";
 
 function App() {
   return (
-    <div className='w-full p-16 '>
-      <BasicTable />
+    <div className="w-full p-16 ">
+      <RowSelection />
     </div>
   );
 }
