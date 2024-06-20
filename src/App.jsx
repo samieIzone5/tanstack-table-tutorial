@@ -1,10 +1,10 @@
 import './App.css'
-import BasicTable from './components/BasicTable';
+import GlobalFiltering from "./components/GlobalFiltering";
 
 function App() {
   return (
-    <div className='w-full p-16 '>
-      <BasicTable />
+    <div className="w-full p-16 ">
+      <GlobalFiltering />
     </div>
   );
 }
