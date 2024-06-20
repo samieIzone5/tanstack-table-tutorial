@@ -1,10 +1,10 @@
 import './App.css'
-import BasicTable from './components/BasicTable';
+import Pagination from "./components/Pagination";
 
 function App() {
   return (
-    <div className='w-full p-16 '>
-      <BasicTable />
+    <div className="w-full p-16 ">
+      <Pagination />
     </div>
   );
 }
